@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>ContextLoss - Case History</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+
+<body>
+
+<div class="container">
+
+    <header>
+
+        <h1>ContextLoss</h1>
+
+        <p>
+            Historical Context Analysis
+        </p>
+
+    </header>
+
+
+    <div class="result-card">
+
+        <h2>Saved Cases</h2>
+
+        {% if cases %}
+
+        <div style="overflow-x:auto;">
+
+            <table style="width:100%; border-collapse:collapse;">
+
+                <thead>
+
+                    <tr>
+
+                        <th style="padding:12px; text-align:left;">
+                            ID
+                        </th>
+
+                        <th style="padding:12px; text-align:left;">
+                            Risk
+                        </th>
+
+                        <th style="padding:12px; text-align:left;">
+                            Integrity
+                        </th>
+
+                        <th style="padding:12px; text-align:left;">
+                            Similarity
+                        </th>
+
+                        <th style="padding:12px; text-align:left;">
+                            Lost
+                        </th>
+
+                        <th style="padding:12px; text-align:left;">
+                            Changed
+                        </th>
+
+                        <th style="padding:12px; text-align:left;">
+                            Conflicts
+                        </th>
+
+                        <th style="padding:12px; text-align:left;">
+                            Created
+                        </th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody>
+
+                {% for case in cases %}
+
+                    <tr>
+
+                        <td style="padding:12px;">
+                            {{ case["id"] }}
+                        </td>
+
+                        <td style="padding:12px;">
+                            {{ case["risk"] }}
+                        </td>
+
+                        <td style="padding:12px;">
+                            {{ case["integrity"] }}%
+                        </td>
+
+                        <td style="padding:12px;">
+                            {{ case["similarity"] }}%
+                        </td>
+
+                        <td style="padding:12px;">
+                            {{ case["lost_count"] }}
+                        </td>
+
+                        <td style="padding:12px;">
+                            {{ case["changed_count"] }}
+                        </td>
+
+                        <td style="padding:12px;">
+                            {{ case["conflict_count"] }}
+                        </td>
+
+                        <td style="padding:12px;">
+                            {{ case["created_at"] }}
+                        </td>
+
+                    </tr>
+
+                {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+        {% else %}
+
+        <p>No cases have been saved yet.</p>
+
+        {% endif %}
+
+    </div>
+
+
+    <div style="text-align:center; margin-top:25px;">
+
+        <a href="/" style="text-decoration:none;">
+            ← Back to Analyzer
+        </a>
+
+    </div>
+
+</div>
+
+</body>
+
+</html>

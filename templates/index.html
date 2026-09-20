@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+```
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
+
+<title>ContextLoss</title>
+
+<link rel="stylesheet"
+      href="{{ url_for('static', filename='style.css') }}">
+```
+
+</head>
+
+<body>
+
+<div class="container">
+
+```
+<!-- HEADER -->
+
+<header>
+
+    <h1>ContextLoss</h1>
+
+    <p>
+        Detect critical information lost during human handoffs.
+    </p>
+
+</header>
+
+
+<!-- INPUT SECTION -->
+
+<form method="POST">
+
+    <div class="input-grid">
+
+        <div class="input-card">
+
+            <h2>Original Context</h2>
+
+            <textarea
+                name="original"
+                placeholder="Enter the original request..."
+                required>{{ original }}</textarea>
+
+        </div>
+
+
+        <div class="input-card">
+
+            <h2>Handoff Context</h2>
+
+            <textarea
+                name="handoff"
+                placeholder="Enter the handoff / rewritten request..."
+                required>{{ handoff }}</textarea>
+
+        </div>
+
+    </div>
+
+
+    <button type="submit">
+        Analyze Context
+    </button>
+
+</form>
+
+
+{% if result %}
+
+<!-- RESULTS -->
+
+<section class="results">
+
+    <h2>Context Analysis</h2>
+
+
+    <!-- SUMMARY -->
+
+    <div class="summary-grid">
+
+        <div class="metric">
+
+            <span>Text Similarity</span>
+
+            <strong>
+                {{ result.similarity }}%
+            </strong>
+
+            <small>
+                How similar the two texts are
+            </small>
+
+        </div>
+
+
+        <div class="metric">
+
+            <span>Context Integrity</span>
+
+            <strong>
+                {{ result.integrity }}%
+            </strong>
+
+            <small>
+                How much important context survived
+            </small>
+
+        </div>
+
+
+        <div class="metric">
+
+            <span>Risk Level</span>
+
+            <strong class="risk">
+                {{ result.risk }}
+            </strong>
+
+            <small>
+                Risk caused by context loss or conflict
+            </small>
+
+        </div>
+
+    </div>
+
+
+    <!-- INTEGRITY BREAKDOWN -->
+
+    <div class="result-card integrity-breakdown">
+
+        <h3>📊 Integrity Breakdown</h3>
+
+        <p class="section-description">
+            Why the Context Integrity score changed.
+        </p>
+
+
+        {% set lost_count = result.lost | length %}
+        {% set changed_count = result.changed | length %}
+        {% set conflict_count = result.conflicts | length %}
+
+
+        {% if lost_count == 0 and changed_count == 0 and conflict_count == 0 %}
+
+            <div class="breakdown-summary preserved">
+
+                <span class="breakdown-icon">🟢</span>
+
+                <div>
+
+                    <strong>
+                        All important context was preserved.
+                    </strong>
+
+                    <p>
+                        No lost, changed, or conflicting information was detected.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+        {% else %}
+
+
+            {% if lost_count > 0 %}
+
+            <div class="breakdown-summary lost">
+
+                <span class="breakdown-icon">🔴</span>
+
+                <div>
+
+                    <strong>
+                        {{ lost_count }}
+                        important
+                        {% if lost_count == 1 %}
+                            context element was
+                        {% else %}
+                            context elements were
+                        {% endif %}
+                        lost
+                    </strong>
+
+                    <p>
+
+                        {% if lost_count == 1 %}
+
+                            {{ result.lost[0] }}
+
+                        {% else %}
+
+                            Important information is missing from the handoff:
+                            {{ result.lost | join("; ") }}.
+
+                        {% endif %}
+
+                    </p>
+
+                </div>
+
+            </div>
+
+            {% endif %}
+
+
+            {% if changed_count > 0 %}
+
+            <div class="breakdown-summary changed">
+
+                <span class="breakdown-icon">🟡</span>
+
+                <div>
+
+                    <strong>
+                        {{ changed_count }}
+                        important
+                        {% if changed_count == 1 %}
+                            value changed
+                        {% else %}
+                            values changed
+                        {% endif %}
+                    </strong>
+
+                    <p>
+
+                        {{ result.changed | join("; ") }}.
+
+                    </p>
+
+                </div>
+
+            </div>
+
+            {% endif %}
+
+
+            {% if conflict_count > 0 %}
+
+            <div class="breakdown-summary conflict">
+
+                <span class="breakdown-icon">🟠</span>
+
+                <div>
+
+                    <strong>
+                        {{ conflict_count }}
+                        conflicting
+                        {% if conflict_count == 1 %}
+                            detail detected
+                        {% else %}
+                            details detected
+                        {% endif %}
+                    </strong>
+
+                    <p>
+
+                        {{ result.conflicts | join("; ") }}.
+
+                    </p>
+
+                </div>
+
+            </div>
+
+            {% endif %}
+
+        {% endif %}
+
+    </div>
+
+
+    <!-- LOST -->
+
+    <div class="result-card">
+
+        <h3>🔴 Lost Information</h3>
+
+        {% if result.lost %}
+
+            <ul>
+
+            {% for item in result.lost %}
+
+                <li>{{ item }}</li>
+
+            {% endfor %}
+
+            </ul>
+
+        {% else %}
+
+            <p>No important information was lost.</p>
+
+        {% endif %}
+
+    </div>
+
+
+    <!-- CHANGED -->
+
+    <div class="result-card">
+
+        <h3>🟡 Changed Information</h3>
+
+        {% if result.changed %}
+
+            <ul>
+
+            {% for item in result.changed %}
+
+                <li>{{ item }}</li>
+
+            {% endfor %}
+
+            </ul>
+
+        {% else %}
+
+            <p>No important information was changed.</p>
+
+        {% endif %}
+
+    </div>
+
+
+    <!-- CONFLICTING -->
+
+    <div class="result-card">
+
+        <h3>🟠 Conflicting Information</h3>
+
+        {% if result.conflicts %}
+
+            <ul>
+
+            {% for item in result.conflicts %}
+
+                <li>{{ item }}</li>
+
+            {% endfor %}
+
+            </ul>
+
+        {% else %}
+
+            <p>No conflicts detected.</p>
+
+        {% endif %}
+
+    </div>
+
+
+    <!-- SIMILAR HISTORICAL CASES -->
+
+    <div class="historical-section">
+
+        <h2>🔎 Similar Historical Cases</h2>
+
+        <p class="section-description">
+            OpenSearch retrieves previously analyzed cases
+            with similar context.
+        </p>
+
+
+        {% if similar_cases %}
+
+            {% for case in similar_cases %}
+
+            <div class="historical-card">
+
+                <div class="historical-header">
+
+                    <span>
+                        Historical Case {{ loop.index }}
+                    </span>
+
+                    <span class="historical-risk">
+                        {{ case.risk }}
+                    </span>
+
+                </div>
+
+
+                <div class="historical-content">
+
+                    <div>
+
+                        <strong>Original:</strong>
+
+                        <p>
+                            {{ case.original }}
+                        </p>
+
+                    </div>
+
+
+                    <div>
+
+                        <strong>Handoff:</strong>
+
+                        <p>
+                            {{ case.handoff }}
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="historical-metrics">
+
+                    <span>
+                        Context Integrity:
+                        <strong>
+                            {{ case.integrity }}%
+                        </strong>
+                    </span>
+
+                    <span>
+                        Text Similarity:
+                        <strong>
+                            {{ case.similarity }}%
+                        </strong>
+                    </span>
+
+                </div>
+
+            </div>
+
+            {% endfor %}
+
+        {% else %}
+
+            <div class="no-history">
+
+                <p>
+                    No similar historical cases found.
+                </p>
+
+            </div>
+
+        {% endif %}
+
+    </div>
+
+
+</section>
+
+{% endif %}
+```
+
+</div>
+
+</body>
+
+</html>

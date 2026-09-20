@@ -1,0 +1,7 @@
+.venv/
+__pycache__/
+*.pyc
+contextloss.db
+*.db
+.env
+.vscode/

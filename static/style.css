@@ -1,0 +1,461 @@
+/* =========================================================
+CONTEXTLOSS - HACKATHON UI
+========================================================= */
+
+* {
+  box-sizing: border-box;
+  }
+
+html {
+scroll-behavior: smooth;
+}
+
+body {
+margin: 0;
+font-family: Arial, Helvetica, sans-serif;
+background: #f4f7fb;
+color: #172033;
+line-height: 1.6;
+}
+
+/* =========================================================
+MAIN CONTAINER
+========================================================= */
+
+.container {
+width: 92%;
+max-width: 1150px;
+margin: 0 auto;
+padding: 35px 0 60px;
+}
+
+/* =========================================================
+HEADER
+========================================================= */
+
+header {
+text-align: center;
+margin-bottom: 38px;
+}
+
+header h1 {
+margin: 0;
+font-size: 46px;
+font-weight: 800;
+letter-spacing: -1px;
+color: #111827;
+}
+
+header p {
+margin: 10px auto 0;
+max-width: 720px;
+color: #667085;
+font-size: 18px;
+}
+
+/* =========================================================
+INPUT SECTION
+========================================================= */
+
+.input-grid {
+display: grid;
+grid-template-columns: 1fr 1fr;
+gap: 24px;
+}
+
+.input-card {
+background: #ffffff;
+border: 1px solid #e4e7ec;
+border-radius: 16px;
+padding: 24px;
+box-shadow: 0 8px 25px rgba(16, 24, 40, 0.06);
+transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.input-card:hover {
+transform: translateY(-2px);
+box-shadow: 0 12px 30px rgba(16, 24, 40, 0.09);
+}
+
+.input-card h2 {
+margin: 0 0 8px;
+font-size: 21px;
+color: #111827;
+}
+
+/* =========================================================
+TEXTAREA
+========================================================= */
+
+textarea {
+width: 100%;
+min-height: 190px;
+padding: 16px;
+border: 1px solid #d0d5dd;
+border-radius: 10px;
+resize: vertical;
+font-family: Arial, Helvetica, sans-serif;
+font-size: 15px;
+line-height: 1.6;
+color: #1d2939;
+background: #fcfcfd;
+outline: none;
+transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+textarea::placeholder {
+color: #98a2b3;
+}
+
+textarea:focus {
+border-color: #667085;
+box-shadow: 0 0 0 4px rgba(102, 112, 133, 0.10);
+background: #ffffff;
+}
+
+/* =========================================================
+ANALYZE BUTTON
+========================================================= */
+
+button {
+display: block;
+margin: 28px auto 10px;
+padding: 14px 34px;
+border: none;
+border-radius: 10px;
+background: #111827;
+color: #ffffff;
+font-size: 16px;
+font-weight: 700;
+cursor: pointer;
+box-shadow: 0 6px 15px rgba(17, 24, 39, 0.18);
+transition:
+transform 0.2s ease,
+box-shadow 0.2s ease,
+background 0.2s ease;
+}
+
+button:hover {
+background: #1f2937;
+transform: translateY(-2px);
+box-shadow: 0 9px 20px rgba(17, 24, 39, 0.22);
+}
+
+button:active {
+transform: translateY(0);
+}
+
+/* =========================================================
+RESULTS SECTION
+========================================================= */
+
+.results {
+margin-top: 48px;
+}
+
+.results > h2 {
+text-align: center;
+margin: 0 0 26px;
+font-size: 28px;
+color: #111827;
+}
+
+/* =========================================================
+SUMMARY METRICS
+========================================================= */
+
+.summary-grid {
+display: grid;
+grid-template-columns: repeat(3, 1fr);
+gap: 20px;
+margin-bottom: 26px;
+}
+
+.metric {
+background: #ffffff;
+border: 1px solid #e4e7ec;
+border-radius: 16px;
+padding: 24px 18px 20px;
+text-align: center;
+box-shadow: 0 8px 25px rgba(16, 24, 40, 0.06);
+transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.metric:hover {
+transform: translateY(-2px);
+box-shadow: 0 12px 30px rgba(16, 24, 40, 0.09);
+}
+
+.metric span {
+display: block;
+margin-bottom: 8px;
+color: #667085;
+font-size: 14px;
+font-weight: 700;
+text-transform: uppercase;
+letter-spacing: 0.5px;
+}
+
+.metric strong {
+display: block;
+margin-bottom: 8px;
+font-size: 30px;
+line-height: 1.15;
+font-weight: 800;
+color: #111827;
+}
+
+.metric small {
+display: block;
+min-height: 42px;
+color: #98a2b3;
+font-size: 12px;
+line-height: 1.45;
+}
+
+/* =========================================================
+RISK LEVEL
+========================================================= */
+
+.risk {
+color: #b42318 !important;
+}
+
+/* =========================================================
+RESULT CARDS
+========================================================= */
+
+.result-card {
+background: #ffffff;
+border: 1px solid #e4e7ec;
+border-radius: 16px;
+padding: 24px;
+margin-bottom: 20px;
+box-shadow: 0 8px 25px rgba(16, 24, 40, 0.06);
+}
+
+.result-card h3 {
+margin: 0 0 15px;
+font-size: 20px;
+color: #111827;
+}
+
+.result-card ul {
+margin: 0;
+padding-left: 22px;
+}
+
+.result-card li {
+margin-bottom: 9px;
+color: #475467;
+}
+
+.result-card li:last-child {
+margin-bottom: 0;
+}
+
+.result-card strong {
+color: #111827;
+}
+
+.result-card p {
+color: #475467;
+}
+
+/* =========================================================
+HISTORICAL CASES
+========================================================= */
+
+.historical-section {
+margin-top: 34px;
+}
+
+.historical-section h2 {
+margin-bottom: 6px;
+color: #111827;
+}
+
+.section-description {
+margin-top: 0;
+margin-bottom: 20px;
+color: #667085;
+font-size: 14px;
+}
+
+.historical-card {
+background: #ffffff;
+border: 1px solid #e4e7ec;
+border-radius: 16px;
+padding: 22px;
+margin-bottom: 16px;
+box-shadow: 0 8px 25px rgba(16, 24, 40, 0.05);
+}
+
+.historical-header {
+display: flex;
+justify-content: space-between;
+align-items: center;
+gap: 12px;
+margin-bottom: 18px;
+font-weight: 700;
+color: #111827;
+}
+
+.historical-risk {
+font-size: 13px;
+font-weight: 700;
+color: #667085;
+}
+
+.historical-content {
+display: grid;
+grid-template-columns: 1fr 1fr;
+gap: 24px;
+}
+
+.historical-content strong {
+color: #344054;
+}
+
+.historical-content p {
+margin: 6px 0 0;
+color: #475467;
+}
+
+.historical-metrics {
+display: flex;
+gap: 24px;
+margin-top: 18px;
+padding-top: 15px;
+border-top: 1px solid #eaecf0;
+color: #667085;
+font-size: 14px;
+}
+
+.historical-metrics strong {
+color: #111827;
+}
+
+/* =========================================================
+EMPTY / SAFE RESULTS
+========================================================= */
+
+.no-history {
+background: #ffffff;
+border: 1px solid #e4e7ec;
+border-radius: 16px;
+padding: 20px;
+text-align: center;
+}
+
+.no-history p {
+margin: 0;
+color: #667085;
+}
+
+/* =========================================================
+LINKS
+========================================================= */
+
+a {
+color: #344054;
+text-decoration: none;
+}
+
+a:hover {
+text-decoration: underline;
+}
+
+/* =========================================================
+MOBILE RESPONSIVE
+========================================================= */
+
+@media (max-width: 850px) {
+
+```
+.container {
+    width: 94%;
+    padding-top: 25px;
+}
+
+header h1 {
+    font-size: 38px;
+}
+
+header p {
+    font-size: 16px;
+}
+
+.input-grid,
+.summary-grid,
+.historical-content {
+    grid-template-columns: 1fr;
+}
+
+.input-card,
+.result-card,
+.historical-card {
+    padding: 20px;
+}
+
+textarea {
+    min-height: 170px;
+}
+
+.historical-metrics {
+    flex-direction: column;
+    gap: 6px;
+}
+```
+
+}
+
+@media (max-width: 500px) {
+
+```
+.container {
+    width: 94%;
+    padding-top: 20px;
+    padding-bottom: 40px;
+}
+
+header {
+    margin-bottom: 28px;
+}
+
+header h1 {
+    font-size: 32px;
+}
+
+header p {
+    font-size: 15px;
+}
+
+.input-card h2 {
+    font-size: 19px;
+}
+
+textarea {
+    min-height: 150px;
+    font-size: 14px;
+}
+
+button {
+    width: 100%;
+    margin-top: 22px;
+}
+
+.results {
+    margin-top: 35px;
+}
+
+.results > h2 {
+    font-size: 24px;
+}
+
+.metric strong {
+    font-size: 27px;
+}
+```
+
+}
