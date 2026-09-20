@@ -571,3 +571,6 @@ Dashboard
 ```
 
 > **ContextLoss — because a successful handoff should preserve more than just the words.**
+## Architecture
+
+![ContextLoss Architecture](architecture.png)
