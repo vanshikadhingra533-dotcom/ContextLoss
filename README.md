@@ -394,7 +394,7 @@ ContextLoss/
 ## 1. Clone the repository
 
 ```bash
-git clone <YOUR-GITHUB-REPOSITORY-URL>
+git clone https://github.com/vanshikadhingra533-dotcom/ContextLoss.git
 cd ContextLoss
 ```
 
